@@ -1,4 +1,4 @@
-#include "Number.h"
+#include "number.h"
 #include "atom.h"
 #include "variable.h"
 #include <string>

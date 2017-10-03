@@ -1,4 +1,4 @@
-#include "Number.h"
+#include "number.h"
 #include "atom.h"
 #include "variable.h"
 #include <string>
@@ -6,12 +6,12 @@ using std::string;
 
   Variable :: Variable(string s):_symbol(s){}
   string Variable :: value(){ return _value; }
-  
+
   bool Variable :: match(Number num){
     bool ret = _varassignable;
     if(ret || _value==""){
       _value = std::to_string(num.value());
-      _varassignable = false;  
+      _varassignable = false;
     }
     return ret;
   }
