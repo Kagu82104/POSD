@@ -20,7 +20,6 @@ TEST (Number, matchSuccess) {
 	Number num(25);
 	Number num1(25);
 	ASSERT_TRUE(num.match(num1));
-	cout << num.match(num1) <<endl;
 }
 //?- 25=0.
 //false.
