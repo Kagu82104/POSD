@@ -11,7 +11,7 @@ public:
 	Atom (string s);
 	string symbol();
 	bool match(Number num);
-	bool match(Variable &var);
+	bool match(Variable& var);
 
 private:
 	bool _assignable = true;

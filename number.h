@@ -9,13 +9,13 @@ class Variable;
 class Number {
 public:
   Number(int v);
-  int value();
+  string value();
   string symbol();
   bool match(Number num);
   bool match(Atom at);
-  bool match(Variable var);
+  bool match(Variable& var);
 private:
-	int _value;
+	string _value;
 	const string _symbol;
 };
 

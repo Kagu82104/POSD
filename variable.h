@@ -11,8 +11,8 @@ public:
   string value();
   bool match( Atom atom );
   bool match(Number num);
-  string setvalue(string v);
-  bool setassignable(bool b);
+  void setvalue(string v);
+  void setassignable(bool b);
   bool getassignable();
 private:
   string _value;

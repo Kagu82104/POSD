@@ -7,7 +7,7 @@ using namespace std;
 //test Number.value()
 TEST (Number,ctor) {
 	Number num(25);
-	ASSERT_EQ(25,num.value());
+	ASSERT_EQ("25",num.value());
 }
 //test Number.symbol()
 TEST (Number, symbol) {
