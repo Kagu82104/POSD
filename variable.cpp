@@ -12,6 +12,7 @@ using std::string;
     if(ret || _value==""){
       _value = std::to_string(num.value());
       _varassignable = false;
+      return true;
     }
     return ret;
   }
@@ -28,6 +29,7 @@ using std::string;
     if(ret || _value==""){
       _value = atom.symbol();
       _varassignable = false;
+      return true;
     }
     else if(_value==atom.symbol()){
       return true;

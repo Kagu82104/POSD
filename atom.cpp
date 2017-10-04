@@ -12,6 +12,10 @@ Atom :: Atom (string s):_symbol(s) {}
     if(ret || var.value()==""){
       var.setvalue(_symbol) ;
       var.setassignable(false);
+			return true;
     }
+		else if(_symbol==var.value()){
+			return true;
+		}
     return ret;
   }

@@ -11,7 +11,7 @@ Number :: Number(int v):_value(v),_symbol(std::to_string(v)){}
   bool Number :: match(Atom at){return _symbol==at.symbol();}
   bool Number :: match(Variable var){
   	bool ret = var.getassignable();
-  	if(ret){
+  	if(ret || var.value()==std::to_string(_value)){
   		return true;
   	}
   	return false;
