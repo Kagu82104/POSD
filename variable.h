@@ -6,7 +6,6 @@
 #include "number.h"
 //#include "struct.h"
 using std::string;
-using namespace std;
 class Struct;
 class Number;
 class Variable:public Term{
@@ -46,11 +45,15 @@ public:
     return ret;
   }
   bool match(Number & num){
+    bool ret = _numassignable;
+    if(_numassignable ||_value ==num.value()){
       _value = num.value();
       for(int i=0;i<vec.size();i++){
           *vec[i] = num.value();
         }
-    return true;
+        return true;
+  }
+  return ret;
   }
   bool match(Term & term){
       if(!_termassignable) {
@@ -63,6 +66,7 @@ public:
   string _value;
   Term *pt;
   bool _assignable = true;
+  bool _numassignable = true;
   bool _varassignable = true;
   bool _termassignable = false;
   std::vector<Variable *> vec;
