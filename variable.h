@@ -8,6 +8,7 @@
 using std::string;
 using namespace std;
 class Struct;
+class Number;
 class Variable:public Term{
 public:
   Variable(string s):_symbol(s),_value(s){}
