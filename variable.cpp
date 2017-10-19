@@ -26,6 +26,10 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
               pv->vec.push_back(vec[i]);
               (*vec[i]).vec.push_back(pv);
             }
+            for(int i=0;i<pv->vec.size();i++){
+              vec.push_back(pv->vec[i]);
+              pv->vec[i]->vec.push_back(vec[i]);
+            }
           }
           vec.push_back(pv); //x = y  y=z
           pv->vec.push_back(this);//y = x
