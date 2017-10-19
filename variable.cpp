@@ -36,10 +36,16 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
           else if(!(pv->_assignable)){
             _value =pv->value();//(Y)value = X
             _assignable = false;
+          }else
+          {
+            _value = pv->value();
           }
           //pv->match(*this);
           return true;
-        }        
+        }
+        else if(value()==pv->value()){
+          return true;
+        }
         return false;
       }
       bool ret = _assignable;
