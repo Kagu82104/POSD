@@ -2,6 +2,7 @@
 #include "atom.h"
 #include "struct.h"
 #include "number.h"
+#include "variable.h"
 TEST(Struct, hobby)
 {
   Atom tom("tom");

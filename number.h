@@ -3,23 +3,13 @@
 #include <sstream>
 #include <string>
 #include "term.h"
-#include "variable.h"
-#include "struct.h"
 using std::string;
 class Number:public Term {
 public:
-  Number(double v):_value(v),_symbol(std::to_string(v)){};
-  string value(){
-    std::stringstream ss;
-    ss << _value;
-    return ss.str();
-  };
-  string symbol() const {
-    std::stringstream ss;
-    ss << _value;
-    return ss.str();
-  };
-
+  Number(double v);
+  string value();
+  string symbol() const;
+  bool match(Term &term);
 private:
 	double _value;
 	const string _symbol;

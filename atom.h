@@ -6,10 +6,10 @@ using std::string;
 
 class Atom:public Term{
 public:
-  Atom (string s):_symbol(s) {};
-  string symbol() const {return _symbol;};
+  Atom (string s);
+  string symbol() const;
 	string _symbol;
-
+  bool match(Term &term);
 };
 
 #endif

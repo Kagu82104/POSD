@@ -4,7 +4,6 @@
 #include "number.h"
 #include "atom.h"
 #include "struct.h"
-
 TEST(Variable, constructor){
   Variable X("X");
   ASSERT_EQ("X", X._symbol);
