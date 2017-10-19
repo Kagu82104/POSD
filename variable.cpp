@@ -20,7 +20,7 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
       }
       if(pv){
         bool ret = _varassignable;
-        if(_varassignable ||pv->_varassignable){
+        if(_assignable ||pv->_assignable){
           _varassignable = false;
           if(vec.size() > 0 ){
             for(int i=0;i<vec.size();i++){
@@ -31,7 +31,7 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
           vec.push_back(pv); //x = y  y=z
           pv->vec.push_back(this);//y = x
           _value =pv->value();//(Y)value = X
-          pv->match(*this);
+          //pv->match(*this);
         }
         return ret;
       }
@@ -39,13 +39,12 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
       if(_assignable ||term.value() == _value){
         _value = term.value();
         _assignable = false;
-          cout << "symbol:"<<symbol()<<endl;
           for(int i=0;i<vec.size();i++){
             (*vec[i])._value = term.value();
         }
-        return ret;
+        ret = true;
       }
 
 
-      return false;
+      return ret;
 }
