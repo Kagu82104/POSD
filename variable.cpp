@@ -37,12 +37,9 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
             _value =pv->value();//(Y)value = X
             _assignable = false;
           }
-
           //pv->match(*this);
           return true;
-        }else if(_value ==pv->value()){
-          return true;
-        }
+        }        
         return false;
       }
       bool ret = _assignable;
