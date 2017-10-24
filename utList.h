@@ -165,9 +165,14 @@ TEST(List, matchVarinListToAtomShouldSucceed) {
   Atom alan_mathison_turing("alan_mathison_turing");
   std::vector<Term *> v ={&num,&X,&terence_tao};
   List list(v);
+  Y.match(list);
+  EXPECT_EQ("[496, X, terence_tao]",Y.value());
+  EXPECT_EQ("[496, X, terence_tao]",list.value());
   X.match(alan_mathison_turing);
-  EXPECT_EQ("[496, alan_mathison_turing, terence_tao]",list.symbol());
+  EXPECT_EQ("[496, alan_mathison_turing, terence_tao]",list.value());
+  EXPECT_EQ("[496, alan_mathison_turing, terence_tao]",Y.value());
   EXPECT_EQ("alan_mathison_turing",X.value());
+  //EXPECT_EQ("[496, alan_mathison_turing, terence_tao]",Y.value());
 }
 
 // Example:

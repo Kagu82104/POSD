@@ -6,6 +6,9 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
   string Variable :: value() const{
     if(_termassignable)
       return pt->value();
+    if(_listassignable)
+      return pt->value();
+  return _value;
     return _value;
   }
   string Variable :: symbol() const{return _symbol;}
@@ -56,7 +59,7 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
         return false;
       }
       if(pl){
-        if(!_listassignable||pt==&term) {
+        if(!_listassignable || pt == &term) {
           pt = &term;
           _value = pl->value();
           _listassignable = true;
