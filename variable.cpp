@@ -56,8 +56,9 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
         return false;
       }
       if(pl){
-        if(!_listassignable) {
+        if(!_listassignable||pt==&term) {
           pt = &term;
+          _value = pl->value();
           _listassignable = true;
         }
         return _listassignable;

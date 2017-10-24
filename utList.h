@@ -98,6 +98,7 @@ TEST(List, matchToVarShouldSucceed) {
   List list(v);
   Variable Y("Y");
   EXPECT_TRUE(Y.match(list));
+  EXPECT_EQ("[496, X, terence_tao]",Y.value());
 }
 
 // ?- X = [496, X, terence_tao].
