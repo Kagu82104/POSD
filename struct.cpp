@@ -1,4 +1,5 @@
 #include "struct.h"
+#include "list.h"
   Struct :: Struct (Atom const & name, std::vector<Term *> v):_name(name), _args(v) {}
   Term * Struct :: args(int index) { return _args[index]; }
   Atom const & Struct :: name() { return _name; }
@@ -22,6 +23,7 @@
   };
   bool Struct :: match(Term & term){
     Struct * ps = dynamic_cast<Struct *>(&term);
+    List * pl = dynamic_cast<List *>(&term);
     //Variable * pv = dynamic_cast<Variable *>(&term);
     if (ps){
      if (!_name.match(ps->_name)){return false;}//match1
@@ -32,6 +34,9 @@
        if (_args[i]->symbol()!=ps->_args[i]->symbol()) {return false;}
      }
      return true;
+   }
+   if(pl){
+     return false;
    }
   //  if(pv){
   //

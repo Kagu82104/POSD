@@ -12,13 +12,16 @@ public:
   string value() const;
   string symbol() const;
   bool match(Term & term);
+  //Variable * getVariable();
   string _symbol;
   string _value;
   Term *pt;
   bool _assignable = true;
   bool _varassignable = true;
   bool _termassignable = false;
+  bool _listassignable = false;
   std::vector<Variable *> vec;
+
 };
 
 #endif

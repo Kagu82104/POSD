@@ -1,8 +1,9 @@
 #ifndef TERM_H
 #define TERM_H
 #include <string>
-using std::string;
 
+using std::string;
+class Variable;
 class Term{
 public:
   virtual string  symbol() const = 0;
@@ -10,6 +11,7 @@ public:
   virtual bool match(Term & term) {
     return symbol() == term.symbol();
   }
+  virtual Variable * getVariable() { return 0; }
 };
 
 

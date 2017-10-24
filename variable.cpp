@@ -1,4 +1,5 @@
 #include "variable.h"
+#include "list.h"
 using namespace std;
 #include <iostream>
 Variable :: Variable(string s):_symbol(s),_value(s){}
@@ -11,6 +12,8 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
   bool Variable :: match(Term & term){
     Struct * ps = dynamic_cast<Struct *>(&term);
     Variable * pv = dynamic_cast<Variable *>(&term);
+    //Variable * pv = term.getVariable();
+    List * pl = dynamic_cast<List *>(&term);
       if(ps){
         if(!_termassignable) {
           pt = &term;
@@ -52,6 +55,13 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
         }
         return false;
       }
+      if(pl){
+        if(!_listassignable) {
+          pt = &term;
+          _listassignable = true;
+        }
+        return _listassignable;
+      }
       bool ret = _assignable;
       if(_assignable ||term.value() == _value){
         _value = term.value();
@@ -65,3 +75,4 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
 
       return ret;
 }
+//Variable & Variable :: getVariable() { return *this; }

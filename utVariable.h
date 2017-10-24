@@ -13,6 +13,7 @@ TEST(Variable , matching){
   Atom tom("tom");
   Variable X("X");
   X.match(tom);
+  ASSERT_TRUE(X.match(tom));
   ASSERT_EQ( "tom", X.value());
 }
 
@@ -83,12 +84,13 @@ TEST (Variable, num1_to_varZ_to_varY_to_varX) {
   Variable Y("Y");
   Variable Z("Z");
   Number num(1);
-  X.match(Y);
-  //EXPECT_EQ("Y",X.value());
-  Y.match(Z);
-  //EXPECT_EQ("Z",Y.value());
-  //EXPECT_EQ("Z",X.value());
-  Z.match(num);
+  num.match(Z);
+  num.match(Y);
+  ASSERT_TRUE(X.match(Z));
+  ASSERT_TRUE(Y.match(Z));
+  // X.match(Y);
+  // Y.match(Z);
+  // Z.match(num);
   EXPECT_EQ("1",X.value());
   EXPECT_EQ("1",Y.value());
   EXPECT_EQ("1",Z.value());
@@ -107,6 +109,7 @@ TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
   EXPECT_EQ("1",X.value());
   EXPECT_EQ("1",Y.value());
   EXPECT_EQ("1",Z.value());
+  // EXPECT_EQ("1",W.value());
 
 }
 
