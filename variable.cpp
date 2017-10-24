@@ -4,11 +4,12 @@ using namespace std;
 #include <iostream>
 Variable :: Variable(string s):_symbol(s),_value(s){}
   string Variable :: value() const{
-    if(_termassignable)
+    if(_termassignable){
       return pt->value();
-    if(_listassignable)
+    }
+    if(_listassignable){
       return pt->value();
-  return _value;
+    }
     return _value;
   }
   string Variable :: symbol() const{return _symbol;}
@@ -27,14 +28,23 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
       if(pv){
         if(_assignable ||pv->_assignable){
           _varassignable = false;
-          int vsize = vec.size();
           if(vec.size() > 0 ){
-            for(int i=0;i< pv->vec.size();i++){
-              vec.push_back(pv->vec[i]);
-            }
             for(int i=0;i<vec.size();i++){
               pv->vec.push_back(vec[i]);
+              (*vec[i]).vec.push_back(pv);
             }
+            for(int i=0;i<pv->vec.size();i++){
+              vec.push_back(pv->vec[i]);
+              pv->vec[i]->vec.push_back(vec[i]);
+            }
+            //int vsize = vec.size();
+            // for(int i=0;i< pv->vec.size();i++){
+            //   vec.push_back(pv->vec[i]);
+            // }
+            // for(int i=0;i<vsize;i++){
+            //   pv->vec.push_back(vec[i]);
+            // }
+            //
           }
           vec.push_back(pv); //x = y  y=z
           pv->vec.push_back(this);//y = x
@@ -45,11 +55,10 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
           else if(!(pv->_assignable)){
             _value =pv->value();//(Y)value = X
             _assignable = false;
-          }else
-          {
+          }
+          else{
             _value = pv->value();
           }
-          //pv->match(*this);
           return true;
         }
         else if(value()==pv->value()){
