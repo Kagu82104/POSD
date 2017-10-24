@@ -1,6 +1,7 @@
 #include "list.h"
 #include <string>
 #include "variable.h"
+
 // public:
 //   List (): _elements() {}
 //   List (vector<Term *> const & elements):_elements(elements){}
@@ -27,6 +28,9 @@ bool List :: match(Term & term){
   List * ps = dynamic_cast<List *>(&term);
   Variable * pv = dynamic_cast<Variable *>(&term);
   if(ps){
+    if(ps == this){
+      return true;
+    }
     if(ps->getsize()==getsize()){
       for (int i = 0; i < ps->getsize(); i++) {
         bool listmatchlist =_elements[i]->match(*(ps->_elements[i]));
