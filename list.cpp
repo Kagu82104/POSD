@@ -25,6 +25,7 @@ string List :: symbol() const {
 
 bool List :: match(Term & term){
   List * ps = dynamic_cast<List *>(&term);
+  Variable * pv = dynamic_cast<Variable *>(&term);
   if(ps){
     if(ps->getsize()==getsize()){
       for (int i = 0; i < ps->getsize(); i++) {
@@ -36,6 +37,10 @@ bool List :: match(Term & term){
       return true;
     }
     return false;
+  }
+  if(pv){
+      pv->match(*this);
+      return true;
   }
 
   return symbol() == term.symbol();

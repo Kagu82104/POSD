@@ -249,3 +249,17 @@ TEST (List, emptyExecptionOfTail) {
 }
 
 #endif
+/*
+[  FAILED  ] 2 tests, listed below:
+
+[  FAILED  ] List.matchToSameListShouldSucceed
+unknown file: Failure
+C++ exception with description "std::bad_alloc" thrown in the test body.
+
+[  FAILED  ] List.matchVarinListToAtomShouldSucceed
+utList.h:185: Failure
+Value of: (Y.value())
+  Actual: "Y"
+Expected: "[496, alan_mathison_turing, terence_tao]"
+
+*/

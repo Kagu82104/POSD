@@ -28,6 +28,7 @@ public:
 private:
   vector<Term *> _elements;
   string _symbol;
+  Term *pt;
 };
 
 #endif
