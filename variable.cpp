@@ -27,14 +27,13 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
       if(pv){
         if(_assignable ||pv->_assignable){
           _varassignable = false;
+          int vsize = vec.size();
           if(vec.size() > 0 ){
+            for(int i=0;i< pv->vec.size();i++){
+              vec.push_back(pv->vec[i]);
+            }
             for(int i=0;i<vec.size();i++){
               pv->vec.push_back(vec[i]);
-              (*vec[i]).vec.push_back(pv);
-            }
-            for(int i=0;i<pv->vec.size();i++){
-              vec.push_back(pv->vec[i]);
-              pv->vec[i]->vec.push_back(vec[i]);
             }
           }
           vec.push_back(pv); //x = y  y=z
@@ -75,8 +74,6 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
         }
         ret = true;
       }
-
-
       return ret;
 }
 //Variable & Variable :: getVariable() { return *this; }
