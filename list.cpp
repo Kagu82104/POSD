@@ -28,10 +28,16 @@ bool List :: match(Term & term){
   List * ps = dynamic_cast<List *>(&term);
   Variable * pv = dynamic_cast<Variable *>(&term);
   if(ps){
-    if(ps == this){
-      return true;
-    }
     if(ps->getsize()==getsize()){
+      int samelist=0;
+      for(int i=0;i<getsize();i++){
+        if(ps->_elements[i]==_elements[i]){
+          samelist+=1;
+        }
+        if(samelist==getsize()){
+          return true;
+        }
+      }
       for (int i = 0; i < ps->getsize(); i++) {
         bool listmatchlist =_elements[i]->match(*(ps->_elements[i]));
         if(!listmatchlist){
