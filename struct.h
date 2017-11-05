@@ -13,6 +13,7 @@ public:
   Atom const & name();
   string symbol() const;
   string value() const;
+  int arity();
   bool match(Term & term);
 private:
   Atom _name;

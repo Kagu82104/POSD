@@ -1,17 +1,19 @@
 #include "struct.h"
 #include "list.h"
+#include <iostream>
   Struct :: Struct (Atom const & name, std::vector<Term *> v):_name(name), _args(v) {}
   Term * Struct :: args(int index) { return _args[index]; }
   Atom const & Struct :: name() { return _name; }
   string Struct :: symbol() const {
+    string ret = _name.symbol() +"(";
     if(_args.size() > 0 ){
-      string ret = _name.symbol() +"(";
       for (int i=0;i<_args.size()-1;i++){
           ret +=_args[i]->symbol() +", ";
       }
-      ret +=_args[_args.size()-1]->symbol() +")";
-      return ret;
+      ret +=_args[_args.size()-1]->symbol();
     }
+    ret +=")";
+    return ret;
   };
   string Struct :: value() const {
     string ret = _name.symbol() +"(";
@@ -42,4 +44,7 @@
   //
   //  }
     return false;
-  }
+  };
+  int Struct :: arity(){
+    return _args.size();
+  };

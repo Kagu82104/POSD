@@ -1,12 +1,12 @@
-all: hw4
+all: hw5
 
-hw4: mainTest.o number.o atom.o struct.o variable.o list.o
+hw5: mainTest.o number.o atom.o struct.o variable.o list.o
 ifeq ($(OS),Windows_NT)
-	g++ -o hw4 mainTest.o number.o atom.o struct.o variable.o list.o -lgtest
+	g++ -o hw5 mainTest.o number.o atom.o struct.o variable.o list.o -lgtest
 else
-	g++ -o hw4 mainTest.o number.o atom.o struct.o variable.o list.o -lgtest -lpthread
+	g++ -o hw5 mainTest.o number.o atom.o struct.o variable.o list.o -lgtest -lpthread
 endif
-mainTest.o: mainTest.cpp utStruct.h utVariable.h utList.h
+mainTest.o: mainTest.cpp parser.h utParser.h #utStruct.h utVariable.h utList.h
 	g++ -std=gnu++0x -c mainTest.cpp
 list.o: list.cpp list.h
 	g++ -std=gnu++0x -c list.cpp
@@ -19,6 +19,6 @@ struct.o: struct.cpp struct.h
 variable.o: variable.cpp variable.h
 	g++ -std=gnu++0x -c variable.cpp
 clean:
-	rm -f *.o hw4
+	rm -f *.o hw5
 stat:
 	wc *.h *.cpp

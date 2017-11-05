@@ -29,22 +29,33 @@ Variable :: Variable(string s):_symbol(s),_value(s){}
         if(_assignable ||pv->_assignable){
           _varassignable = false;
           if(vec.size() > 0 ){
+            for (int i = 0; i < vec.size(); i++) {
+              (*vec[i]).vec.push_back(pv);
+              for (int j = 0; j < pv->vec.size(); j++) {
+                (*vec[i]).vec.push_back(pv->vec[j]);
+              }
+            }
+            for (int i = 0; i < pv->vec.size(); i++) {
+              (*(pv->vec[i])).vec.push_back(this);
+              for (int j = 0; j < vec.size(); j++) {
+                (pv->vec[i])->vec.push_back(vec[j]);
+              }
+            }
+            int vsize = pv->vec.size();
             for(int i=0;i<vec.size();i++){
               pv->vec.push_back(vec[i]);
-              (*vec[i]).vec.push_back(pv);
             }
-            for(int i=0;i<pv->vec.size();i++){
+            for(int i=0;i<vsize;i++){
               vec.push_back(pv->vec[i]);
-              pv->vec[i]->vec.push_back(vec[i]);
             }
-            //int vsize = vec.size();
-            // for(int i=0;i< pv->vec.size();i++){
-            //   vec.push_back(pv->vec[i]);
-            // }
-            // for(int i=0;i<vsize;i++){
+            // for(int i=0;i<vec.size();i++){
             //   pv->vec.push_back(vec[i]);
+            //   (*vec[i]).vec.push_back(pv);
             // }
-            //
+            // for(int i=0;i<pv->vec.size();i++){
+            //   vec.push_back(pv->vec[i]);
+            //   pv->vec[i]->vec.push_back(vec[i]);
+            // }
           }
           vec.push_back(pv); //x = y  y=z
           pv->vec.push_back(this);//y = x

@@ -109,8 +109,6 @@ TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
   EXPECT_EQ("1",X.value());
   EXPECT_EQ("1",Y.value());
   EXPECT_EQ("1",Z.value());
-  // EXPECT_EQ("1",W.value());
-
 }
 
 // Give there is a Struct s contains Variable X
