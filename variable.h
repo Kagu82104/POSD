@@ -1,27 +1,30 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
-#include <vector>
-#include <string>
-#include "struct.h"
-using std::string;
-using namespace std;
-class Struct;
-class Variable:public Term{
-public:
-  Variable(string s);
-  string value() const;
-  string symbol() const;
-  bool match(Term & term);
-  //Variable * getVariable();
-  string _symbol;
-  string _value;
-  Term *pt;
-  bool _assignable = true;
-  bool _varassignable = true;
-  bool _termassignable = false;
-  bool _listassignable = false;
-  std::vector<Variable *> vec;
 
+#include <string>
+#include "atom.h"
+using std::string;
+
+class Variable : public Term {
+public:
+  Variable(string s):Term(s), _inst(0){}
+  string value() const {
+    if (_inst)
+      return _inst->value();
+    else
+      return Term::value();
+  }
+  bool match( Term & term ){
+    if (this == &term)
+      return true;
+    if(!_inst){
+      _inst = &term ;
+      return true;
+    }
+    return _inst->match(term);
+  }
+private:
+  Term * _inst;
 };
 
 #endif

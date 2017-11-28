@@ -1,8 +1,8 @@
 #include <vector>
 #include "atom.h"
-#include "struct.h"
-#include "number.h"
 #include "variable.h"
+#include "struct.h"
+
 TEST(Struct, hobby)
 {
   Atom tom("tom");
@@ -12,10 +12,9 @@ TEST(Struct, hobby)
   ASSERT_EQ("hobby", hobby.name().symbol());
   ASSERT_EQ("tom", hobby.args(0)->symbol());
   ASSERT_EQ("chaseMouse", hobby.args(1)->symbol());
-
 }
 
-TEST(Struct, symbol)
+TEST(Struct,symbol)
 {
   Atom tom("tom");
   Atom chaseMouse("chaseMouse");
@@ -31,7 +30,7 @@ TEST(Struct, match1)
   std::vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
   Struct hobby2(Atom("hobby2"), v);
-  ASSERT_FALSE(hobby.match(hobby2));
+  EXPECT_FALSE(hobby.match(hobby2));
 }
 
 TEST(Struct, match2){
@@ -79,8 +78,8 @@ TEST(Struct, match5)
 TEST(Struct, var)
 {
   Variable X("X");
-  std::vector<Term *> v ={&X};
-  Struct s(Atom("s"),v);
+  std::vector<Term *> v = {&X};
+  Struct s(Atom("s"), v);
   ASSERT_EQ("s(X)",s.symbol());
   ASSERT_EQ("s(X)",s.value());
 }
@@ -92,14 +91,39 @@ TEST(Struct, var)
 TEST(Struct, var_match_atom)
 {
   Variable X("X");
+  std::vector<Term *> v = {&X};
+  Struct s(Atom("s"), v);
+  ASSERT_EQ("s(X)",s.symbol());
+  ASSERT_EQ("s(X)",s.value());
   Atom tom("tom");
-  std::vector<Term *> v ={&X};
-  Struct s(Atom("s"),v);
   X.match(tom);
-  EXPECT_EQ("X",X.symbol());
-  EXPECT_EQ("tom",X.value());
-  EXPECT_EQ("s(X)",s.symbol());
-  EXPECT_EQ("s(tom)",s.value());
+  ASSERT_EQ("s(tom)",s.value());
+}
+
+TEST(Struct, var_match_num)
+{
+  Variable X("X");
+  std::vector<Term *> v = {&X};
+  Struct s(Atom("s"), v);
+  ASSERT_EQ("s(X)",s.symbol());
+  ASSERT_EQ("s(X)",s.value());
+  Number g0(9.80665);
+  X.match(g0);
+  ASSERT_EQ("s(9.80665)",s.value());
+}
+
+TEST(Struct, var_match_struct)
+{
+  Variable X("X");
+  Atom eg("erich_gamma");
+  std::vector<Term *> v2 = {&eg};
+  Struct s2(Atom("s2"), v2);
+  std::vector<Term *> v1 = {&X};
+  Struct s1(Atom("s1"), v1);
+  ASSERT_EQ("s1(X)",s1.symbol());
+  ASSERT_EQ("s1(X)",s1.value());
+  X.match(s2);
+  ASSERT_EQ("s1(s2(erich_gamma))", s1.value());
 }
 
 // Given there are Struct s1 and Struct s2
@@ -110,12 +134,13 @@ TEST(Struct, var_match_atom)
 TEST(Struct, nested_struct1)
 {
   Variable X("X");
-  std::vector<Term *> v2 ={&X};
-  Struct s2(Atom("s2"),v2);
-  std::vector<Term *> v ={&s2};
-  Struct s1(Atom("s1"),v);
-  EXPECT_EQ("s1(s2(X))",s1.symbol());
-  EXPECT_EQ("s1(s2(X))",s1.value());
+  std::vector<Term *> v = {&X};
+  Struct s2(Atom("s2"), v);
+  std::vector<Term *> v2 = {&s2};
+  Struct s1(Atom("s1"), v2);
+
+  ASSERT_EQ("s1(s2(X))",s1.symbol());
+  ASSERT_EQ("s1(s2(X))",s1.value());
 }
 
 // Given there are Struct s1 contains Struct s2
@@ -126,14 +151,17 @@ TEST(Struct, nested_struct1)
 TEST(Struct, nested_struct2)
 {
   Variable X("X");
-  std::vector<Term *> v2 ={&X};
-  Struct s2(Atom("s2"),v2);
-  std::vector<Term *> v ={&s2};
-  Struct s1(Atom("s1"),v);
+  std::vector<Term *> v = {&X};
+  Struct s2(Atom("s2"), v);
+  std::vector<Term *> v2 = {&s2};
+  Struct s1(Atom("s1"), v2);
+
+  ASSERT_EQ("s1(s2(X))",s1.symbol());
+  ASSERT_EQ("s1(s2(X))",s1.value());
   Atom tom("tom");
   X.match(tom);
-  EXPECT_EQ("s1(s2(X))",s1.symbol());
-  EXPECT_EQ("s1(s2(tom))",s1.value());
+  ASSERT_EQ("s1(s2(X))",s1.symbol());
+  ASSERT_EQ("s1(s2(tom))",s1.value());
 }
 
 // Given there are Struct s1 contains Struct s2
@@ -143,15 +171,35 @@ TEST(Struct, nested_struct2)
 // and #value() of s1 should return "s1(s2(3.14))"
 TEST(Struct, nested_struct3)
 {
-  Number pi(3.14);
   Variable X("X");
-  std::vector<Term *> v2 ={&X};
-  Struct s2(Atom("s2"),v2);
-  std::vector<Term *> v ={&s2};
-  Struct s1(Atom("s1"),v);
+  std::vector<Term *> v = {&X};
+  Struct s2(Atom("s2"), v);
+  std::vector<Term *> v2 = {&s2};
+  Struct s1(Atom("s1"), v2);
+
+  ASSERT_EQ("s1(s2(X))",s1.symbol());
+  ASSERT_EQ("s1(s2(X))",s1.value());
+  Number pi(3.14);
   X.match(pi);
-  EXPECT_EQ("s1(s2(X))",s1.symbol());
-  EXPECT_EQ("s1(s2(3.14))",s1.value());
+  ASSERT_EQ("s1(s2(X))",s1.symbol());
+  ASSERT_EQ("s1(s2(3.14))",s1.value());
+}
+
+TEST(Struct, nested_struct4)
+{
+  Variable X("X");
+  std::vector<Term *> v = {&X};
+  Struct s2(Atom("s2"), v);
+
+  std::vector<Term *> v2 = {&X};
+  Struct s3(Atom("s3"), v);
+
+  std::vector<Term *> v3 = {&s2, &s3};
+  Struct s1(Atom("s1"), v3);
+  Atom kb("kent_beck");
+  X.match(kb);
+  ASSERT_EQ("s1(s2(X), s3(X))",s1.symbol());
+  ASSERT_EQ("s1(s2(kent_beck), s3(kent_beck))",s1.value());
 }
 
 // Given there are Struct s1 contains Struct s2 and Variable X
@@ -164,14 +212,26 @@ TEST(Struct, nested_struct_and_multiVariable)
 {
   Variable X("X");
   Variable Y("Y");
-  std::vector<Term *> v2 ={&Y};
-  Struct s2(Atom("s2"),v2);
-  std::vector<Term *> v ={&s2,&X};
-  Struct s1(Atom("s1"),v);
+  std::vector<Term *> v = {&Y};
+  Struct s2(Atom("s2"), v);
+  std::vector<Term *> v2 = {&s2, &X};
+  Struct s1(Atom("s1"), v2);
+  Atom kb("kent_beck");
   X.match(Y);
-  Atom kent_beck("kent_beck");
-  X.match(kent_beck);
-  EXPECT_EQ("s1(s2(Y), X)",s1.symbol());
-  EXPECT_EQ("s1(s2(kent_beck), kent_beck)",s1.value());
+  Y.match(kb);
+  ASSERT_EQ("s1(s2(Y), X)",s1.symbol());
+  ASSERT_EQ("s1(s2(kent_beck), kent_beck)",s1.value());
+}
 
+//?-s(X)=s(Y).
+//X=Y.
+TEST(Struct, matchWithVar)
+{
+  Variable X("X");
+  Variable Y("Y");
+  std::vector<Term *> v = {&X};
+  Struct s1(Atom("s"), v);
+  std::vector<Term *> v2 = {&Y};
+  Struct s2(Atom("s"), v2);
+  ASSERT_TRUE(s1.match(s2));
 }
