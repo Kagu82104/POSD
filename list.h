@@ -1,15 +1,16 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include "atom.h"
+#include "term.h"
 #include <vector>
 #include <string>
 #include <typeinfo>
 #include <iostream>
+
 using std::vector;
-
-class Variable ;
-
+template<class TermType>
+class Iterator;
+class Variable;
 class List : public Term {
 public:
   string symbol() const ;
@@ -20,6 +21,14 @@ public:
   List (vector<Term *> const & elements):_elements(elements){}
   Term * head() const;
   List * tail() const;
+  Term * args(int index) {
+    return _elements[index];
+  }
+  int arity() const {return _elements.size();}
+  Iterator<Term*>* createIterator();
+  Iterator<Term*>* createDFSIterator();
+  Iterator<Term*>* createBFSIterator();
+
 private:
   vector<Term *> _elements;
 };
