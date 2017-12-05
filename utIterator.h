@@ -111,7 +111,7 @@ TEST(iterator,DfsListtIteratorEmpty){
   ASSERT_TRUE(it->isDone());
 }
 
-//s(1, t(X,2), Y)
+//p(1, s(1, t(X,2), Y), Y)
 TEST(iterator,DfsStructIterator){
   Number one(1) , two(2);
   Variable X("X") , Y("Y");
@@ -119,8 +119,14 @@ TEST(iterator,DfsStructIterator){
   Struct t(Atom("t"), v);
   vector<Term*> v2 = {&one,&t,&Y};
   Struct s(Atom("s"), v2);
-  Iterator<Term*> *it = s.createDFSIterator();
+  vector<Term*> v3 = {&one,&s,&Y};
+  Struct p(Atom("p"), v3);
+  Iterator<Term*> *it = p.createDFSIterator();
   it->first();
+  ASSERT_EQ("1", it->currentItem()->symbol());
+  it->next();
+  ASSERT_EQ("s(1, t(X, 2), Y)", it->currentItem()->symbol());
+  it->next();
   ASSERT_EQ("1", it->currentItem()->symbol());
   it->next();
   ASSERT_EQ("t(X, 2)", it->currentItem()->symbol());
@@ -128,6 +134,8 @@ TEST(iterator,DfsStructIterator){
   ASSERT_EQ("X", it->currentItem()->symbol());
   it->next();
   ASSERT_EQ("2", it->currentItem()->symbol());
+  it->next();
+  ASSERT_EQ("Y", it->currentItem()->symbol());
   it->next();
   ASSERT_EQ("Y", it->currentItem()->symbol());
   it->next();
