@@ -1,0 +1,10 @@
+*.o
+*.gif
+madRace
+utAtom
+utScanner
+utVariable
+mainIterator
+struct
+atom
+term
