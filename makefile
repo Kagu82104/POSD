@@ -17,7 +17,7 @@ list.o:list.cpp list.h iterator.h variable.h
 struct.o:struct.cpp struct.h iterator.h variable.h
 	g++ -std=gnu++0x -c struct.cpp
 
-mainIterator.o: mainIterator.cpp utIterator.h
+mainIterator.o: mainIterator.cpp utIterator.h number.h
 	g++ -std=gnu++0x -c mainIterator.cpp
 
 clean:
