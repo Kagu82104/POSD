@@ -7,10 +7,13 @@ else
 endif
 term.o: term.cpp term.h variable.h iterator.h
 	g++ -std=gnu++0x -c term.cpp
+
 atom.o: atom.cpp atom.h
 	g++ -std=gnu++0x -c atom.cpp
+
 list.o:list.cpp list.h iterator.h variable.h
 	g++ -std=gnu++0x -c list.cpp
+
 struct.o:struct.cpp struct.h iterator.h variable.h
 	g++ -std=gnu++0x -c struct.cpp
 
