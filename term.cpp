@@ -1,26 +1,26 @@
 #include "term.h"
-#include "variable.h"
 #include "iterator.h"
-#include <typeinfo>
-
-Iterator<Term*>* Term::createIterator(){
-  return new NullIterator<Term*>(this);
+std::string Term::value() const
+{
+    return symbol();
 }
 
+void Term::setArg(int i, Term *term)
+{
+    
+}
+
+Iterator<Term*>* Term::createIterator()
+{
+    return new NullIterator<Term*>(this);
+}
 
 Iterator<Term*>* Term::createDFSIterator()
 {
-  return new NullIterator<Term*>(this);
+    return new NullIterator<Term*>(this);
 }
 
 Iterator<Term*>* Term::createBFSIterator()
 {
-  return new NullIterator<Term*>(this);
-}
-
-bool Term::match(Term & a){
-  if (typeid(a) ==  typeid(Variable))
-    return a.match(*this);
-  else
-    return symbol() == a.symbol();
+    return new NullIterator<Term*>(this);
 }
