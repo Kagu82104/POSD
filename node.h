@@ -3,16 +3,15 @@
 #include "term.h"
 #include "global.h"
 enum Operators {SEMICOLON, COMMA, EQUALITY, TERM};
-class Node 
+class Node
 {
 public:
     Node(Operators op);
     Node(Operators op, Term *t, Node *l, Node *r);
     bool evaluate();
-
-//member
-    Operators    payload;
-    Term         *term;
-    Node         *left, *right;
+    Operators payload;
+    Term *term;
+    Node *left;
+    Node *right;
 };
 #endif

@@ -1,13 +1,8 @@
 #include "scanner.h"
-Scanner::Scanner(std::string in)
-    : buffer(in), pos(0), _tokenValue(NONE)
-{
+Scanner::Scanner(std::string in): buffer(in), pos(0), _tokenValue(NONE){}
 
-}
-
-void Scanner::setInput(std::string in)
-{
-    buffer = in;
+void Scanner::setInput(std::string in){
+      buffer = in;
 }
 
 int Scanner::nextToken()

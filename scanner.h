@@ -18,7 +18,7 @@ public:
     char currentChar();
     int extractNumber();
     std::string extractAtom();
-    std::string extractAtomSC(); //Special characters
+    std::string extractAtomSC();
     std::string extractVar();
     char extractChar();
 private:
